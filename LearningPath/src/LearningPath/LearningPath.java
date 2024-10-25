@@ -1,5 +1,6 @@
 package LearningPath;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,17 +13,17 @@ public class LearningPath {
     private int duracionTotalMinutos;
     private double rating;
     private Date fechaCreacion;
-    private Date fechaModificacion;
+    private LocalDateTime fechaModificacion;
     private String version;
     private List<Actividad> actividades;
 
    
-    public LearningPath(String titulo, String descripcion, int dificultad, String version) {
+    public LearningPath(String titulo, String descripcion, int dificultad, int duracionTotalMinutos, double rating, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,  String version, List<Actividad> actividades) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.dificultad = dificultad;
         this.fechaCreacion = new Date();
-        this.fechaModificacion = new Date();
+        this.fechaModificacion = LocalDateTime.now();
         this.version = version;
         this.actividades = new ArrayList<>();
         this.duracionTotalMinutos = 0;
@@ -32,26 +33,46 @@ public class LearningPath {
    
     public void agregarActividad(Actividad actividad) {
         actividades.add(actividad);
-        calcularDuracionTotal();
+        
         System.out.println("Actividad agregada: " + actividad.getDescripcion());
     }
 
     public void eliminarActividad(Actividad actividad) {
         if (actividades.remove(actividad)) {
-            calcularDuracionTotal();
             System.out.println("Actividad eliminada: " + actividad.getDescripcion());
         } else {
             System.out.println("La actividad no existe en el Learning Path.");
         }
     }
 
-    public void calcularDuracionTotal() {
-        duracionTotalMinutos = actividades.stream().mapToInt(Actividad::getDuracionMinutos).sum();
-        System.out.println("Duración total del Learning Path: " + duracionTotalMinutos + " minutos.");
-    }
 
-    public void calcularRating() {
-        System.out.println("El rating actual del Learning Path es: " + rating);
+    public double calcularRating() {
+        if (actividades.isEmpty()) {
+            System.out.println("No hay actividades disponibles para calcular el rating.");
+            return 0.0;
+        }
+
+        double sumaRatings = 0.0;
+        int cantidadRatings = 0;
+
+        for (Actividad actividad : actividades) {
+            
+            double ratingActividad = actividad.getRating(); // Implementar este método en la clase Actividad
+            if (ratingActividad >= 0) { 
+                sumaRatings += ratingActividad;
+                cantidadRatings++;
+            }
+        }
+
+        if (cantidadRatings == 0) {
+            System.out.println("No hay ratings válidos para calcular el promedio.");
+            return 0.0;
+        }
+
+        // Calcular promedio
+        this.rating = sumaRatings / cantidadRatings;
+        System.out.println("El nuevo rating promedio del Learning Path es: " + this.rating);
+        return this.rating;
     }
 
 
@@ -82,8 +103,15 @@ public class LearningPath {
     public int getDuracionTotalMinutos() {
         return duracionTotalMinutos;
     }
+    
+    
 
-    public double getRating() {
+    public void setDuracionTotalMinutos(int duracionTotalMinutos) {
+		this.duracionTotalMinutos = duracionTotalMinutos;
+	}
+
+
+	public double getRating() {
         return rating;
     }
 
@@ -95,12 +123,12 @@ public class LearningPath {
         return fechaCreacion;
     }
 
-    public Date getFechaModificacion() {
+    public LocalDateTime getFechaModificacion() {
         return fechaModificacion;
     }
 
-    public void setFechaModificacion(Date fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+    public void setFechaModificacion(LocalDateTime date) {
+        this.fechaModificacion = date;
     }
 
     public String getVersion() {

@@ -1,7 +1,8 @@
 package LearningPath;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 import Usuario.Estudiante;
@@ -15,11 +16,11 @@ public class Actividad {
     private boolean obligatoria;
     private List<Actividad> actividadesPreviasSugeridas;
     private List<Actividad> actividadesSeguimiento;
-    private Date fechaLimite;
+    private LocalDate fechaLimite;
     private String resultado;
 
 
-    public Actividad(String descripcion, String objetivo, int dificultad, int duracionMinutos, boolean obligatoria, Date fechaLimite) {
+    public Actividad(String descripcion, String objetivo, int dificultad,  boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
         this.descripcion = descripcion;
         this.objetivo = objetivo;
         this.dificultad = dificultad;
@@ -32,7 +33,8 @@ public class Actividad {
     }
 
 
-    public void completarActividad(Estudiante estudiante) {
+
+	public void completarActividad(Estudiante estudiante) {
         System.out.println("El estudiante " + estudiante.getNombre() + " ha completado la actividad: " + descripcion);
         this.resultado = "Completada";
     }
@@ -43,7 +45,7 @@ public class Actividad {
         return true; 
     }
 
-    public Date calcularFechaLimite() {
+    public LocalDate calcularFechaLimite() {
         return fechaLimite;
     }
 
@@ -103,11 +105,11 @@ public class Actividad {
         this.actividadesSeguimiento = actividadesSeguimiento;
     }
 
-    public Date getFechaLimite() {
+    public LocalDate getFechaLimite() {
         return fechaLimite;
     }
 
-    public void setFechaLimite(Date fechaLimite) {
+    public void setFechaLimite(LocalDate fechaLimite) {
         this.fechaLimite = fechaLimite;
     }
 

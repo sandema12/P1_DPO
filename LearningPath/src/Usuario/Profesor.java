@@ -1,5 +1,6 @@
 package Usuario;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class Profesor extends Usuario {
             learningPath.setTitulo(nuevoTitulo);
             learningPath.setDescripcion(nuevaDescripcion);
             learningPath.setDificultad(nuevaDificultad);
-            learningPath.setFechaModificacion(new java.util.Date());
+            learningPath.setFechaModificacion(LocalDateTime.now());
             System.out.println("Learning Path editado: " + nuevoTitulo);
         } else {
             System.out.println("No tienes permiso para editar este Learning Path.");
