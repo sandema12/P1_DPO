@@ -1,5 +1,6 @@
 package LearningPath;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,16 +10,16 @@ public class LearningPath {
     
     private String titulo;
     private String descripcion;
-    private int dificultad; 
+    private String dificultad; 
     private int duracionTotalMinutos;
     private double rating;
     private Date fechaCreacion;
     private LocalDateTime fechaModificacion;
-    private String version;
-    private List<Actividad> actividades;
+    private int version;
+    private static List<Actividad> actividades;
 
    
-    public LearningPath(String titulo, String descripcion, int dificultad, int duracionTotalMinutos, double rating, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,  String version, List<Actividad> actividades) {
+    public LearningPath(String titulo, String descripcion, String dificultad, int duracionTotalMinutos, double rating, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,  int version, List<Actividad> actividades) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.dificultad = dificultad;
@@ -31,18 +32,13 @@ public class LearningPath {
     }
 
    
-    public void agregarActividad(Actividad actividad) {
-        actividades.add(actividad);
+    public static void agregarActividad(String titulo, String descripcion, String objetivo, String dificultad,  boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
         
-        System.out.println("Actividad agregada: " + actividad.getDescripcion());
-    }
-
-    public void eliminarActividad(Actividad actividad) {
-        if (actividades.remove(actividad)) {
-            System.out.println("Actividad eliminada: " + actividad.getDescripcion());
-        } else {
-            System.out.println("La actividad no existe en el Learning Path.");
-        }
+    	Actividad nuevaActividad = new Actividad(titulo, descripcion, objetivo, dificultad, obligatoria, duracionMinutos, fechaLimite);
+        
+		actividades.add(nuevaActividad);
+		
+        
     }
 
 

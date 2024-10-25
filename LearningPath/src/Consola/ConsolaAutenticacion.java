@@ -1,5 +1,7 @@
 package Consola;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import Usuario.Estudiante;
@@ -7,12 +9,11 @@ import Usuario.Profesor;
 import Usuario.Usuario;
 
 public class ConsolaAutenticacion {
-    //private GestorPersistencia gestorPersistencia;
+	List<Usuario> usuarios = new ArrayList<>();
     private Scanner entrada;
 	
 	
     public ConsolaAutenticacion() {
-        //gestorPersistencia = new GestorPersistencia();
         entrada = new Scanner(System.in);
     }
 	
@@ -60,24 +61,23 @@ public class ConsolaAutenticacion {
         System.out.print("Contraseña: ");
         String password = entrada.nextLine();
         
-        System.out.print("Nombre: ");
-        String nombre = entrada.nextLine();
-        
         System.out.print("Rol (Profesor/Estudiante): ");
         String rol = entrada.nextLine();		
 		
 		Usuario nuevoUsuario;
 		
 		if (rol.equalsIgnoreCase("Profesor")) {
-            nuevoUsuario = new Profesor(username, password, nombre);
+            nuevoUsuario = new Profesor(username, password, rol);
+            
         } else if (rol.equalsIgnoreCase("Estudiante")) {
-            nuevoUsuario = new Estudiante(username, password, nombre);
+            nuevoUsuario = new Estudiante(username, password, rol);
         } else {
             System.out.println("Rol no válido. El registro ha sido cancelado.");
             return;
         }
 		
-		//gestorPersistencia.guardarUsuario(nuevoUsuario);
+		usuarios.add(nuevoUsuario);
+		
         System.out.println("Usuario registrado exitosamente.");
 		
 	}	
@@ -88,22 +88,33 @@ public class ConsolaAutenticacion {
         System.out.print("Contraseña: ");
         String password = entrada.nextLine();
         
-        Usuario usuario = gestorPersistencia.leerUsuario(username);
-        
-        if (usuario != null && usuario.getPassword().equals(password)) {
-            System.out.println("Inicio de sesión exitoso. Bienvenido, " + usuario.getNombre());
-            
-            if (usuario instanceof Profesor) {
-                ConsolaProfesor consolaProfesor = new ConsolaProfesor();
-                consolaProfesor.mostrarMenu();
-            } else if (usuario instanceof Estudiante) {
-                ConsolaEstudiante consolaEstudiante = new ConsolaEstudiante();
-                consolaEstudiante.mostrarMenu();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUsername().equals(username)) {
+                Usuario usuarioAutenticado = usuario;
+                
+                
+                if (usuarioAutenticado.getPassword().equals(password)) {
+                	System.out.println("Inicio de sesión exitoso. Bienvenido, " + usuario.getUsername());	
+                	
+                	
+                	if (usuarioAutenticado.getRol().equalsIgnoreCase("Estudiante")) {
+                		ConsolaEstudiante consolaEstudiante = new ConsolaEstudiante();
+                        consolaEstudiante.mostrarMenu();
+                    
+                    	}
+                	else if (usuarioAutenticado.getRol().equalsIgnoreCase("Profesor")) {
+                		ConsolaProfesor consolaProfesor = new ConsolaProfesor();
+                        consolaProfesor.mostrarMenu();
+                    
+                    	}
+                	
+                }else {
+                	System.out.println("Usuario o contraseña incorrectos.");
+                	
+                }
             }
-        } else {
-            System.out.println("Usuario o contraseña incorrectos.");
         }
-		
+        
 	}
 }
 	

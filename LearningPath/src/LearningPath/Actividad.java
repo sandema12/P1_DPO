@@ -9,27 +9,25 @@ import Usuario.Estudiante;
 
 public class Actividad {
    
+	private String titulo;
     private String descripcion;
     private String objetivo;
-    private int dificultad;
+    private String dificultad;
     private int duracionMinutos;
     private boolean obligatoria;
-    private List<Actividad> actividadesPreviasSugeridas;
-    private List<Actividad> actividadesSeguimiento;
     private LocalDate fechaLimite;
     private String resultado;
 
 
-    public Actividad(String descripcion, String objetivo, int dificultad,  boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
-        this.descripcion = descripcion;
+    public Actividad(String titulo, String descripcion, String objetivo, String dificultad,  boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
+        this.titulo = titulo;
+    	this.descripcion = descripcion;
         this.objetivo = objetivo;
         this.dificultad = dificultad;
         this.duracionMinutos = duracionMinutos;
         this.obligatoria = obligatoria;
         this.fechaLimite = fechaLimite;
-        this.actividadesPreviasSugeridas = new ArrayList<>();
-        this.actividadesSeguimiento = new ArrayList<>();
-        this.resultado = "Pendiente";
+        
     }
 
 

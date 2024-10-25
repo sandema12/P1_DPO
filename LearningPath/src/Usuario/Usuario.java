@@ -4,14 +4,12 @@ public class Usuario {
 
     private String username;
     private String password;
-    private String nombre;
     private String rol; 
 
 
-    public Usuario(String username, String password, String nombre, String rol) {
+    public Usuario(String username, String password, String rol) {
         this.username = username;
         this.password = password;
-        this.nombre = nombre;
         this.rol = rol;
     }
 
@@ -32,13 +30,6 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public String getRol() {
         return rol;
@@ -48,17 +39,4 @@ public class Usuario {
         this.rol = rol;
     }
 
-
-    public boolean login(String inputUsername, String inputPassword) {
-        return this.username.equals(inputUsername) && this.password.equals(inputPassword);
-    }
-
-
-    public void registrarse(String username, String password, String nombre, String rol) {
-        this.username = username;
-        this.password = password;
-        this.nombre = nombre;
-        this.rol = rol;
-        System.out.println("Registro exitoso de: " + this.nombre);
-    }
 }

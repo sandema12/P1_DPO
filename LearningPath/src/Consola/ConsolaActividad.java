@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import LearningPath.Actividad; 
+import LearningPath.Actividad;
+import LearningPath.LearningPath; 
 
 public class ConsolaActividad {
     private Scanner entrada;
@@ -28,10 +29,33 @@ public class ConsolaActividad {
 
             switch (opcion) {
                 case 1:
-                    Actividad nuevaActividad = agregarActividad();
-                    if (nuevaActividad != null) {
-                        actividades.add(nuevaActividad); 
-                    }
+                	
+                	System.out.print("Ingrese el titulo de la actividad: ");
+                    String titulo = entrada.nextLine();
+                	
+                    System.out.print("Descripción de la actividad: ");
+                    String descripcion = entrada.nextLine();
+
+                    System.out.print("Objetivo de la actividad: ");
+                    String objetivo = entrada.nextLine();
+
+                    System.out.print("Dificultad de la actividad (1-5): ");
+                    String dificultad = entrada.nextLine();
+
+                    System.out.print("Duración de la actividad en minutos: ");
+                    int duracionMinutos = Integer.parseInt(entrada.nextLine());
+
+                    System.out.print("¿Es esta actividad obligatoria? (sí/no): ");
+                    boolean obligatoria = entrada.nextLine().equalsIgnoreCase("sí");
+                    
+                    System.out.print("Ingrese la fecha límite (YYYY-MM-DD): ");
+                    String fechaLimiteStr = entrada.nextLine();
+                    LocalDate fechaLimite = LocalDate.parse(fechaLimiteStr, DateTimeFormatter.ISO_LOCAL_DATE);
+
+                	
+                	
+                    LearningPath.agregarActividad(titulo, descripcion, objetivo, dificultad, obligatoria, duracionMinutos, fechaLimite);
+                    
                     break;
                 case 2:
                     verActividades(actividades);
@@ -47,32 +71,7 @@ public class ConsolaActividad {
         return actividades; 
     }
 
-    private Actividad agregarActividad() {
-        System.out.print("Descripción de la actividad: ");
-        String descripcion = entrada.nextLine();
 
-        System.out.print("Objetivo de la actividad: ");
-        String objetivo = entrada.nextLine();
-
-        System.out.print("Dificultad de la actividad (1-5): ");
-        int dificultad = Integer.parseInt(entrada.nextLine());
-
-        System.out.print("Duración de la actividad en minutos: ");
-        int duracionMinutos = Integer.parseInt(entrada.nextLine());
-
-        System.out.print("¿Es esta actividad obligatoria? (sí/no): ");
-        boolean obligatoria = entrada.nextLine().equalsIgnoreCase("sí");
-        
-        System.out.print("Ingrese la fecha límite (YYYY-MM-DD): ");
-        String fechaLimiteStr = entrada.nextLine();
-        LocalDate fechaLimite = LocalDate.parse(fechaLimiteStr, DateTimeFormatter.ISO_LOCAL_DATE);
-
-        
-        Actividad nuevaActividad = new Actividad(descripcion, objetivo, dificultad, obligatoria, duracionMinutos, fechaLimite);
-        
-        System.out.println("Actividad agregada exitosamente.");
-        return nuevaActividad; 
-    }
 
     private void verActividades(List<Actividad> actividades) {
         if (actividades.isEmpty()) {

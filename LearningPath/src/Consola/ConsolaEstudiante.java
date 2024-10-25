@@ -70,7 +70,7 @@ public class ConsolaEstudiante {
         System.out.print("Ingrese su reseña: ");
         String reseña = entrada.nextLine();
         
-        System.out.print("Ingrese su calificación (1-5): ");
+        System.out.print("Ingrese su rating (1-5): ");
         int rating = entrada.nextInt();
         entrada.nextLine(); 
         
