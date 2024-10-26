@@ -1,6 +1,12 @@
 package Consola;
 
+import java.util.List;
 import java.util.Scanner;
+
+import LearningPath.Actividad;
+import LearningPath.LearningPath;
+import Usuario.Profesor;
+import Usuario.Estudiante;
 
 
 public class ConsolaEstudiante {
@@ -17,10 +23,11 @@ public class ConsolaEstudiante {
         
         do {
             System.out.println("1. Ver Learning Paths");
-            System.out.println("2. Iniciar Actividad");
-            System.out.println("3. Ver Calificaciones");
-            System.out.println("4. Dejar Reseña");
-            System.out.println("5. Salir");
+            System.out.println("2. Inscribir Learning Path");
+            System.out.println("3. Iniciar Actividad");
+            System.out.println("4. Ver Calificaciones");
+            System.out.println("6. Dejar Reseña");
+            System.out.println("6. Volver");
             System.out.print("Elija una opción: ");
             opcion = entrada.nextInt();
             entrada.nextLine(); 
@@ -30,15 +37,18 @@ public class ConsolaEstudiante {
                     verLearningPaths();
                     break;
                 case 2:
-                    iniciarActividad();
+                	inscribirLearningPath();
                     break;
                 case 3:
-                    verCalificaciones();
+                    iniciarActividad();
                     break;
                 case 4:
-                    dejarReseña();
+                    verCalificaciones();
                     break;
                 case 5:
+                    dejarReseña();
+                    break;
+                case 6:
                     System.out.println("Fin.");
                     break;
                 default:
@@ -48,33 +58,79 @@ public class ConsolaEstudiante {
     }
     
     private void verLearningPaths() {
-        // Implementa la lógica para mostrar los Learning Paths disponibles
-        System.out.println("Mostrando Learning Paths disponibles...");
-        // Aquí deberías recuperar y mostrar los Learning Paths para el estudiante
+        
+    	
+    	List<LearningPath> lp_creados = Profesor.getLearningPathsCreados();
+    	for (LearningPath lp : lp_creados) {
+    		System.out.println(lp.getTitulo());
+    	}
+    }
+    
+    private void inscribirLearningPath() {
+        
+    	System.out.print("Ingrese el nombre del Learning Path que desea inscribir: ");
+    	String inscribir = entrada.nextLine(); 
+    	List<LearningPath> lp_creados = Profesor.getLearningPathsCreados();
+    	for (LearningPath lp : lp_creados) {
+    		if (lp.getTitulo() == inscribir) {
+    			Estudiante.inscribirseEnLearningPath(lp);
+    			System.out.println("Se ha inscrito exitosamente el Learning Path: " + inscribir);
+    		}
+    	
+    	}
     }
 
     private void iniciarActividad() {
-        // Implementa la lógica para iniciar una actividad
-        System.out.println("Iniciando actividad...");
-        // Aquí deberías permitir que el estudiante seleccione una actividad para iniciar
+        
+    	System.out.print("Ingrese la actividad que desea realizar: ");
+    	String actividad = entrada.nextLine(); 
+    	Actividad actividadParaRealizar = null;
+    	
+    	List<Actividad> actividadesCreadas = LearningPath.getActividades();
+    	for (Actividad act : actividadesCreadas) {
+    		if (act.getTitulo() == actividad) {
+    			actividadParaRealizar = act;
+    		}
+    	}
+    	
+    	Actividad.completarActividad(actividadParaRealizar);
+    	
+    	
+ 
     }
 
     private void verCalificaciones() {
-        // Implementa la lógica para mostrar las calificaciones del estudiante
+        // Falta implementar
         System.out.println("Mostrando calificaciones...");
-        // Aquí deberías recuperar y mostrar las calificaciones del estudiante
+        
     }
 
     private void dejarReseña() {
         
-        System.out.print("Ingrese su reseña: ");
-        String reseña = entrada.nextLine();
-        
-        System.out.print("Ingrese su rating (1-5): ");
-        int rating = entrada.nextInt();
-        entrada.nextLine(); 
-        
-        // Aquí deberías guardar la reseña y la calificación
+    	System.out.println("Ingrese el nombre del Learning Path a modificar");
+    	String nombre1 = entrada.nextLine();
+    	List<LearningPath> lp_Lista1 = Profesor.getLearningPathsCreados();
+    	LearningPath lp1 = Profesor.getLearningPath(lp_Lista1, nombre1);
+    
+    	System.out.print("Ingrese el ID del Learning Path o Actividad para dejar una reseña: ");
+	    String id = entrada.nextLine(); 
+	    
+
+	    System.out.print("Ingrese un rating (1-5): ");
+	    double calificacion = entrada.nextDouble();
+	    entrada.nextLine(); 
+
+
+	    if (calificacion < 1 || calificacion > 5) {
+	        System.out.println("El rating debe estar entre 1 y 5.");
+	        return;
+	    }
+
+
+	    System.out.print("Ingrese su feedback: ");
+	    String feedback = entrada.nextLine();
+    	
+        LearningPath.añadirReseña(lp1, calificacion, feedback);
         System.out.println("Reseña dejada exitosamente.");
     }
 }

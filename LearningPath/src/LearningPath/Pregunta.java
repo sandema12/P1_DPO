@@ -9,12 +9,11 @@ public class Pregunta {
     private String respuestaCorrecta; 
     private double puntaje; 
 
-    // Constructor
     public Pregunta(String enunciado, List<String> opciones, String respuestaCorrecta, double puntaje) {
         this.enunciado = enunciado;
         this.opciones = opciones;
         this.respuestaCorrecta = respuestaCorrecta;
-        this.puntaje = puntaje;
+        
     }
 
     

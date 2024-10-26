@@ -4,15 +4,17 @@ import java.time.LocalDate;
 
 public class Tarea extends Actividad {
 
-    private String estado; 
+    public Tarea(String titulo, String descripcion, String objetivo, String dificultad, String tipo,
+			boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
+		super(titulo, descripcion, objetivo, dificultad, tipo, obligatoria, duracionMinutos, fechaLimite);
+		this.estado = "Pendiente";
+	}
+
+	private static String estado; 
 
 
-    public Tarea(String descripcion, String objetivo, int dificultad, int duracionMinutos, boolean obligatoria, LocalDate fechaLimite) {
-        super(descripcion, objetivo, dificultad, obligatoria, duracionMinutos, fechaLimite);
-        this.estado = "Pendiente";
-    }
 
-    public void entregarTarea() {
+    public static void entregarTarea() {
         if (estado.equals("Pendiente")) {
             estado = "Entregada";
             System.out.println("La tarea ha sido entregada.");

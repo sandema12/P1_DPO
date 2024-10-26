@@ -8,13 +8,15 @@ import Usuario.Estudiante;
 
 public class Encuesta extends Actividad {
 
-    private List<PreguntaAbierta> preguntas;
+    public Encuesta(String titulo, String descripcion, String objetivo, String dificultad, String tipo,
+			boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
+		super(titulo, descripcion, objetivo, dificultad, tipo, obligatoria, duracionMinutos, fechaLimite);
+		this.preguntas = new ArrayList<>();
+	}
 
-    public Encuesta(String descripcion, String objetivo, int dificultad, int duracionMinutos, boolean obligatoria, LocalDate fechaLimite) {
-        super(descripcion, objetivo, dificultad, obligatoria, duracionMinutos, fechaLimite);
-        this.preguntas = new ArrayList<>();
-    }
+	private List<PreguntaAbierta> preguntas;
 
+    
 
     public void agregarPregunta(PreguntaAbierta pregunta) {
         preguntas.add(pregunta);
@@ -22,12 +24,12 @@ public class Encuesta extends Actividad {
     }
 
     public void completarEncuesta(Estudiante estudiante, List<String> respuestas) {
-        System.out.println("El estudiante " + estudiante.getNombre() + " ha completado la encuesta: " + getDescripcion());
+        System.out.println("El estudiante ha completado la encuesta: " + getDescripcion());
         for (int i = 0; i < preguntas.size(); i++) {
             PreguntaAbierta pregunta = preguntas.get(i);
             System.out.println("Respuesta a la pregunta \"" + pregunta.getEnunciado() + "\": " + respuestas.get(i));
         }
-        completarActividad(estudiante);  
+        //completarActividad(estudiante);  
     }
 
 

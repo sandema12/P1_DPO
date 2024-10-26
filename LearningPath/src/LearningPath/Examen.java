@@ -7,16 +7,19 @@ import java.util.List;
 import Usuario.Estudiante;
 
 public class Examen extends Actividad {
-    // Atributos
-    private List<Pregunta> preguntas;
-    private String estado; // Puede ser "Pendiente", "Entregado", "Calificado"
-
-    // Constructor
-    public Examen(String descripcion, String objetivo, int dificultad, int duracionMinutos, boolean obligatoria, LocalDate fechaLimite) {
-        super(descripcion, objetivo, dificultad, obligatoria, duracionMinutos, fechaLimite);
-        this.preguntas = new ArrayList<>();
+    private static List<Pregunta> preguntas;
+    private String estado; 
+    
+    
+    public Examen(String titulo, String descripcion, String objetivo, String dificultad, String tipo,
+			boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
+		super(titulo, descripcion, objetivo, dificultad, tipo, obligatoria, duracionMinutos, fechaLimite);
+		this.preguntas = new ArrayList<>();
         this.estado = "Pendiente";
-    }
+	}
+
+	
+
 
 
     public void agregarPregunta(Pregunta pregunta) {
@@ -27,7 +30,7 @@ public class Examen extends Actividad {
     public void entregarExamen(Estudiante estudiante, List<String> respuestas) {
         if (estado.equals("Pendiente")) {
             estado = "Entregado";
-            System.out.println("El estudiante " + estudiante.getNombre() + " ha entregado el examen: " + getDescripcion());
+            System.out.println("El estudiante ha entregado el examen: " + getDescripcion());
             calificarExamen(estudiante, respuestas);
         } else {
             System.out.println("El examen ya ha sido entregado.");
@@ -44,11 +47,11 @@ public class Examen extends Actividad {
         }
         estado = "Calificado";
         setResultado("Nota obtenida: " + puntajeObtenido);
-        System.out.println("El examen del estudiante " + estudiante.getNombre() + " ha sido calificado con: " + puntajeObtenido);
+        System.out.println("El examen del estudiante ha sido calificado con: " + puntajeObtenido);
     }
 
 
-    public List<Pregunta> getPreguntas() {
+    public static List<Pregunta> getPreguntas() {
         return preguntas;
     }
 

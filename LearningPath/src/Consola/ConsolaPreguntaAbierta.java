@@ -6,8 +6,9 @@ import LearningPath.PreguntaAbierta;
 
 public class ConsolaPreguntaAbierta {
 
+	//Implementar
 	public List<PreguntaAbierta> mostrarMenu() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

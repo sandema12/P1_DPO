@@ -8,15 +8,15 @@ import LearningPath.LearningPath;
 
 public class Estudiante extends Usuario {
 
-    private List<LearningPath> learningPathsInscritos;
+    private static List<LearningPath> learningPathsInscritos = new ArrayList<>();
 
     public Estudiante(String username, String password, String nombre) {
-        super(username, password, nombre, "Estudiante");
-        this.learningPathsInscritos = new ArrayList<>();
+        super(username, password, "Estudiante");
+        
     }
 
 
-    public void inscribirseEnLearningPath(LearningPath learningPath) {
+    public static void inscribirseEnLearningPath(LearningPath learningPath) {
         if (!learningPathsInscritos.contains(learningPath)) {
             learningPathsInscritos.add(learningPath);
             System.out.println("Inscrito en el Learning Path: " + learningPath.getTitulo());
@@ -37,13 +37,6 @@ public class Estudiante extends Usuario {
         }
     }
 
-    public void dejarReseña(LearningPath learningPath, String reseña) {
-        if (learningPathsInscritos.contains(learningPath)) {
-            System.out.println("Dejando reseña para el Learning Path " + learningPath.getTitulo() + ": " + reseña);
-        } else {
-            System.out.println("No puedes dejar una reseña porque no estás inscrito en este Learning Path.");
-        }
-    }
 
     public List<LearningPath> getLearningPathsInscritos() {
         return learningPathsInscritos;

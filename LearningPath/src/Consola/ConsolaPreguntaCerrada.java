@@ -45,6 +45,7 @@ public class ConsolaPreguntaCerrada {
         return preguntas; 
     }
 
+    //Implementar respuestas
     private Pregunta agregarPregunta() {
         System.out.print("Enunciado de la pregunta: ");
         String enunciado = entrada.nextLine();

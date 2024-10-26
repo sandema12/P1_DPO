@@ -8,16 +8,18 @@ import Usuario.Estudiante;
 
 public class Quiz extends Actividad {
 
-    private List<Pregunta> preguntas;
+    public Quiz(String titulo, String descripcion, String objetivo, String dificultad, String tipo, boolean obligatoria,
+			int duracionMinutos, LocalDate fechaLimite) {
+		super(titulo, descripcion, objetivo, dificultad, tipo, obligatoria, duracionMinutos, fechaLimite);
+		this.preguntas = new ArrayList<>();
+        this.notaMinima = notaMinima;
+	}
+
+	private static List<Pregunta> preguntas;
     private double notaMinima;
 
 
-    public Quiz(String descripcion, String objetivo, int dificultad, int duracionMinutos, boolean obligatoria, 
-                double notaMinima, LocalDate fechaLimite) {
-        super(descripcion, objetivo, dificultad, obligatoria, duracionMinutos, fechaLimite);
-        this.preguntas = new ArrayList<>();
-        this.notaMinima = notaMinima;
-    }
+
 
     public void agregarPregunta(Pregunta pregunta) {
         preguntas.add(pregunta);
@@ -34,15 +36,15 @@ public class Quiz extends Actividad {
         }
 
         if (puntajeObtenido >= notaMinima) {
-            System.out.println("El estudiante " + estudiante.getNombre() + " aprobó el quiz con una nota de: " + puntajeObtenido);
-            completarActividad(estudiante);
+            System.out.println("El estudiante aprobó el quiz con una nota de: " + puntajeObtenido);
+            //completarActividad(estudiante);
         } else {
-            System.out.println("El estudiante " + estudiante.getNombre() + " no aprobó el quiz. Nota obtenida: " + puntajeObtenido);
+            System.out.println("El estudiante no aprobó el quiz. Nota obtenida: " + puntajeObtenido);
         }
     }
 
 
-    public List<Pregunta> getPreguntas() {
+    public static List<Pregunta> getPreguntas() {
         return preguntas;
     }
 

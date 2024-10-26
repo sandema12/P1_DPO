@@ -22,7 +22,7 @@ public class ConsolaActividad {
         do {
             System.out.println("1. Agregar Actividad");
             System.out.println("2. Ver Actividades");
-            System.out.println("3. Salir");
+            System.out.println("3. Volver");
             System.out.print("Elija una opción: ");
             opcion = entrada.nextInt();
             entrada.nextLine(); 
@@ -32,6 +32,9 @@ public class ConsolaActividad {
                 	
                 	System.out.print("Ingrese el titulo de la actividad: ");
                     String titulo = entrada.nextLine();
+                    
+                    System.out.print("Ingrese el tipo de actividad: ");
+                    String tipo = entrada.nextLine();
                 	
                     System.out.print("Descripción de la actividad: ");
                     String descripcion = entrada.nextLine();
@@ -39,7 +42,7 @@ public class ConsolaActividad {
                     System.out.print("Objetivo de la actividad: ");
                     String objetivo = entrada.nextLine();
 
-                    System.out.print("Dificultad de la actividad (1-5): ");
+                    System.out.print("Dificultad de la actividad (Alta/Medio/Baja): ");
                     String dificultad = entrada.nextLine();
 
                     System.out.print("Duración de la actividad en minutos: ");
@@ -54,7 +57,7 @@ public class ConsolaActividad {
 
                 	
                 	
-                    LearningPath.agregarActividad(titulo, descripcion, objetivo, dificultad, obligatoria, duracionMinutos, fechaLimite);
+                    LearningPath.agregarActividad(titulo, descripcion, objetivo, dificultad, tipo,  obligatoria, duracionMinutos, fechaLimite);
                     
                     break;
                 case 2:
@@ -74,14 +77,17 @@ public class ConsolaActividad {
 
 
     private void verActividades(List<Actividad> actividades) {
-        if (actividades.isEmpty()) {
-            System.out.println("No hay actividades agregadas.");
-            return;
-        }
-
-        System.out.println("Actividades:");
-        for (Actividad actividad : actividades) {
-            System.out.println("- " + actividad.getDescripcion()); 
-        }
+    	
+    	List<Actividad> actividadesExistentes = LearningPath.getActividades();
+    	for (Actividad act : actividadesExistentes) {
+    		System.out.println("Titulo:" + act.getTitulo());
+    		System.out.println("Tipo:" + act.getTipo());
+    		System.out.println("Descripcion:" + act.getDescripcion());
+    		System.out.println("Objetivo:" + act.getObjetivo());
+    		System.out.println("Dificultad:" + act.getDificultad());
+    		System.out.println("Duracion:" + act.getDuracionMinutos());
+    		System.out.println("Fecha limite:" + act.getFechaLimite());
+    		
+    	}
     }
 }

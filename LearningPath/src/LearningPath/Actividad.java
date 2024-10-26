@@ -1,11 +1,16 @@
 package LearningPath;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
 
 import Usuario.Estudiante;
+import LearningPath.RecursoEducativo;
+import LearningPath.Tarea;
+import LearningPath.Quiz;
+import LearningPath.Examen;
 
 public class Actividad {
    
@@ -13,28 +18,51 @@ public class Actividad {
     private String descripcion;
     private String objetivo;
     private String dificultad;
+    private String tipo;
     private int duracionMinutos;
     private boolean obligatoria;
     private LocalDate fechaLimite;
-    private String resultado;
+    private static String resultado;
 
 
-    public Actividad(String titulo, String descripcion, String objetivo, String dificultad,  boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
+    public Actividad(String titulo, String descripcion, String objetivo, String dificultad, String tipo,  boolean obligatoria, int duracionMinutos, LocalDate fechaLimite) {
         this.titulo = titulo;
     	this.descripcion = descripcion;
         this.objetivo = objetivo;
         this.dificultad = dificultad;
+        this.tipo = tipo;
         this.duracionMinutos = duracionMinutos;
         this.obligatoria = obligatoria;
         this.fechaLimite = fechaLimite;
+        this.resultado = resultado; 
         
     }
 
 
-
-	public void completarActividad(Estudiante estudiante) {
-        System.out.println("El estudiante " + estudiante.getNombre() + " ha completado la actividad: " + descripcion);
-        this.resultado = "Completada";
+	public static void completarActividad(Actividad actividad) {
+		
+		if (actividad.getTipo().equalsIgnoreCase("Recurso Educativo")) {
+			RecursoEducativo.completarRecurso();
+    	}
+		else if (actividad.getTipo().equalsIgnoreCase("Tarea")) {
+			Tarea.entregarTarea();
+		}
+		else if (actividad.getTipo().equalsIgnoreCase("Quiz")) {
+			System.out.println("Estas son las preguntas a resolver");
+			List<Pregunta> preguntas = Quiz.getPreguntas();
+			for (Pregunta preg : preguntas) {
+				System.out.println(preg);
+			}
+		}
+		else if (actividad.getTipo().equalsIgnoreCase("Examen")) {
+			System.out.println("Estas son las preguntas a resolver");
+			List<Pregunta> preguntas = Examen.getPreguntas();
+			for (Pregunta preg : preguntas) {
+				System.out.println(preg);
+			}
+		}
+        System.out.println("El estudiante ha completado la actividad");
+        resultado = "Completada";
     }
 
     public boolean verificarPrerequisitos(Estudiante estudiante) {
@@ -63,11 +91,11 @@ public class Actividad {
         this.objetivo = objetivo;
     }
 
-    public int getDificultad() {
+    public String getDificultad() {
         return dificultad;
     }
 
-    public void setDificultad(int dificultad) {
+    public void setDificultad(String dificultad) {
         this.dificultad = dificultad;
     }
 
@@ -87,21 +115,7 @@ public class Actividad {
         this.obligatoria = obligatoria;
     }
 
-    public List<Actividad> getActividadesPreviasSugeridas() {
-        return actividadesPreviasSugeridas;
-    }
 
-    public void setActividadesPreviasSugeridas(List<Actividad> actividadesPreviasSugeridas) {
-        this.actividadesPreviasSugeridas = actividadesPreviasSugeridas;
-    }
-
-    public List<Actividad> getActividadesSeguimiento() {
-        return actividadesSeguimiento;
-    }
-
-    public void setActividadesSeguimiento(List<Actividad> actividadesSeguimiento) {
-        this.actividadesSeguimiento = actividadesSeguimiento;
-    }
 
     public LocalDate getFechaLimite() {
         return fechaLimite;
@@ -118,4 +132,27 @@ public class Actividad {
     public void setResultado(String resultado) {
         this.resultado = resultado;
     }
+    
+    
+	public String getTitulo() {
+		return titulo;
+	}
+
+
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+
+
+	public String getTipo() {
+		return tipo;
+	}
+
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 }
